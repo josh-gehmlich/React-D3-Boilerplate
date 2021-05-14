@@ -51,13 +51,13 @@ export class Chart {
     // Define enter exit update pattern shorthand
     initializeEnterExitUpdatePattern() {
         d3.selection.prototype.patternify = function (params) {
-            var container = this;
-            var selector = params.selector;
-            var elementTag = params.tag;
-            var data = params.data || [selector];
+            const container = this;
+            const selector = params.selector;
+            const elementTag = params.tag;
+            const data = params.data || [selector];
 
             // Pattern in action
-            var selection = container.selectAll('.' + selector).data(data, (d, i) => {
+            let selection = container.selectAll('.' + selector).data(data, (d, i) => {
                 if (typeof d === 'object' && d.id) return d.id;
                 return i;
             });
@@ -124,12 +124,12 @@ export class Chart {
             .attr('font-family', defaultFont);
 
         // Add container g element
-        var g = svg
+        const g = svg
             .patternify({ tag: 'g', selector: 'inner-wrapper' })
             .attr('transform', 'translate(' + chartLeftMargin + ',' + chartTopMargin + ')');
 
         // Add container g element
-        var chart = g
+        const chart = g
             .patternify({ tag: 'g', selector: 'chart' })
 
         this.setState({ chart, svg });
@@ -140,7 +140,7 @@ export class Chart {
         const { marginTop, marginLeft, marginRight, marginBottom, svgWidth, svgHeight } = this.getState();
 
         // Calculated properties
-        var calc = {
+        const calc = {
             id: this.createId(), // id for event handlings,
             chartTopMargin: marginTop,
             chartLeftMargin: marginLeft,
@@ -157,7 +157,7 @@ export class Chart {
 
         // Drawing containers
         const d3Container = d3.select(container);
-        var containerRect = d3Container.node().getBoundingClientRect();
+        const containerRect = d3Container.node().getBoundingClientRect();
         let newSvgWidth = containerRect.width > 0 ? containerRect.width : svgWidth;
         this.setState({ d3Container, svgWidth: newSvgWidth });
     }
